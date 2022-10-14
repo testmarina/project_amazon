@@ -16,7 +16,7 @@ ChromeDriver driver = new ChromeDriver();
 //go to amazon web page
  driver.get("https://www.amazon.com/");
    	
-//make sure what title is Amazon.com. Spend less. Smile more
+//title is Amazon.com. Spend less. Smile more
    		if(driver.getTitle().equalsIgnoreCase("Amazon.com. Spend less. Smile more."))
 	    //Pass
 	    System.out.println("Page title contains expected text ");
