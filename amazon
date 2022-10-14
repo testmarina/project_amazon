@@ -1,0 +1,53 @@
+package introduction;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AmazonPractice {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+//ChromeDriver
+System.setProperty("webdriver.chrome.driver", "C:\\Users\\marin\\Documents\\test\\chromedriver_win32\\chromedriver.exe");
+ChromeDriver driver = new ChromeDriver();
+   	
+//go to amazon web page
+ driver.get("https://www.amazon.com/");
+   	
+//make sure what title is Amazon.com. Spend less. Smile more
+   		if(driver.getTitle().equalsIgnoreCase("Amazon.com. Spend less. Smile more."))
+	    //Pass
+	    System.out.println("Page title contains expected text ");
+   		else
+	    //Fail
+	    System.out.println("Page title doesn't contains expected text");
+	
+//search item	 
+driver.findElement(By.id("twotabsearchtextbox")).sendKeys("Monobeach Princess Tent Girls");
+driver.findElement(By.id("nav-search-submit-button")).submit();
+Thread.sleep(1000);
+//search result  
+List<WebElement>textDemo= driver.findElements(By.xpath("//*[contains(text(),'Monobeach Princess Tent Girls')]"));
+System.out.println("Number of web elements: " +textDemo.size());
+
+//click on first result
+driver.findElement(By.xpath("//*[@id='search']/div[1]/div[1]/div/span[3]/div[2]/div[3]")).click();
+Thread.sleep(1000);
+driver.findElement(By.id("add-to-cart-button")).click();
+Thread.sleep(1000);
+
+//handle new window
+driver.findElement(By.name("proceedToRetailCheckout")).click();
+
+//Create new account
+driver.findElement(By.id("createAccountSubmit")).click();
+driver.findElement(By.linkText("Your name")).sendKeys("Robert");
+driver.findElement(By.linkText("Mobile number or email")).sendKeys("123456789");
+driver.findElement(By.linkText("Password")).sendKeys("123");
+driver.findElement(By.linkText("Re-enter password")).sendKeys("123");
+driver.findElement(By.id("continue")).submit();
+
+
+        }}
