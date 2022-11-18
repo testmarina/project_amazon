@@ -3,12 +3,12 @@ package myprojects;
 import static org.testng.Assert.assertEquals;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
 
 //scenario
 /*
@@ -21,7 +21,9 @@ verify title of item
 how many customer reviw
 price of product
 add product on card
-go to login page and insert email address/should display error message 
+go to login page and insert email addres/
+should display error message 
+insert email adress
 create acount and insert data
 verify expected alert 
 */
@@ -82,11 +84,16 @@ public class amazon {
 		assertEquals(expectedTitle, actualTitle);
 		System.out.println("Page title is : " + actualTitle);
 
-		// how many customer reviw
-		System.out.print(driver.findElement(By.id("acrCustomerReviewText")).getText());
+		// how many customer reviws
+	
+		//System.out.print(driver.findElement(By.id("acrCustomerReviewText")).getText());
+		
+		String CustomerReviews = driver.findElement(By.id("acrCustomerReviewText")).getText();
+		System.out.println("Customer Reviews is -- " + CustomerReviews);
+
 
 		// price
-		System.out.print(driver.findElement(By.cssSelector(".a-price-whole")).getText());
+	//	System.out.print(driver.findElement(By.cssSelector("#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-none.aok-align-center > span.a-price.aok-align-center.reinventPricePriceToPayMargin.priceToPay")).getText());
 
 		// add product on card
 		driver.findElement(By.id("add-to-cart-button")).click();
@@ -104,13 +111,10 @@ public class amazon {
 		String expectedHeading = "We cannot find an account with that email address";
 		String heading = driver.findElement(By.cssSelector("#auth-error-message-box > div > div > ul")).getText();
 		if (expectedHeading.equalsIgnoreCase(heading))
-			System.out.println("The expected heading is same as actual heading --- " + heading);
+			System.out.println("The expected error message is same as actual error message-- " + heading);
 		else
-			System.out.println("The expected heading doesn't match the actual heading --- " + heading);
+			System.out.println("The expected error message doesn't match the actual error message -- " + heading);
 
-		// Actions a= Actions(driver);
-		// WebElement
-		// move=driver.findElement(By.cssSelector("#createAccountSubmit")).click();
 
 		// create new account
 		driver.findElement(By.id("createAccountSubmit")).click();
@@ -123,10 +127,11 @@ public class amazon {
 		driver.findElement(By.id("ap_email")).sendKeys(email);
 		driver.findElement(By.id("ap_password")).sendKeys(password);
 		driver.findElement(By.id("ap_password_check")).sendKeys(re_enter_password);
+		driver.findElement(By.cssSelector("#continue")).click();
+		
 
 		// verify expected alert
-		Boolean Display = driver.findElement(By.id("auth-email-invalid-claim-alert")).isDisplayed();
-		driver.findElement(By.id("auth-password-mismatch-alert")).isDisplayed();
+		Boolean Display = driver.findElement(By.cssSelector("#auth-password-mismatch-alert > div > div")).isDisplayed();
 		System.out.println("Element displayed is :" + Display);
 
 	}
