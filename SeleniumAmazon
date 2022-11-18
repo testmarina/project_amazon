@@ -85,15 +85,16 @@ public class amazon {
 		System.out.println("Page title is : " + actualTitle);
 
 		// how many customer reviws
-	
-		//System.out.print(driver.findElement(By.id("acrCustomerReviewText")).getText());
-		
+
+		// System.out.print(driver.findElement(By.id("acrCustomerReviewText")).getText());
+
 		String CustomerReviews = driver.findElement(By.id("acrCustomerReviewText")).getText();
 		System.out.println("Customer Reviews is -- " + CustomerReviews);
 
-
 		// price
-	//	System.out.print(driver.findElement(By.cssSelector("#corePriceDisplay_desktop_feature_div > div.a-section.a-spacing-none.aok-align-center > span.a-price.aok-align-center.reinventPricePriceToPayMargin.priceToPay")).getText());
+		// System.out.print(driver.findElement(By.cssSelector("#corePriceDisplay_desktop_feature_div
+		// > div.a-section.a-spacing-none.aok-align-center >
+		// span.a-price.aok-align-center.reinventPricePriceToPayMargin.priceToPay")).getText());
 
 		// add product on card
 		driver.findElement(By.id("add-to-cart-button")).click();
@@ -115,7 +116,6 @@ public class amazon {
 		else
 			System.out.println("The expected error message doesn't match the actual error message -- " + heading);
 
-
 		// create new account
 		driver.findElement(By.id("createAccountSubmit")).click();
 		String name = "Rina";
@@ -128,7 +128,6 @@ public class amazon {
 		driver.findElement(By.id("ap_password")).sendKeys(password);
 		driver.findElement(By.id("ap_password_check")).sendKeys(re_enter_password);
 		driver.findElement(By.cssSelector("#continue")).click();
-		
 
 		// verify expected alert
 		Boolean Display = driver.findElement(By.cssSelector("#auth-password-mismatch-alert > div > div")).isDisplayed();
