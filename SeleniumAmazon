@@ -1,14 +1,16 @@
 package myprojects;
-
 import static org.testng.Assert.assertEquals;
-
+import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 //scenario
 /*
@@ -43,11 +45,6 @@ public class amazon {
 		// "C:/Users/marin/Documents/test/geckodriver");
 		// WebDriver driver1 = new FirefoxDriver();
 
-		// Microsoft Edge
-		// System.setProperty("webdriver.edge.driver",
-		// "C:/Users/marin/Documents/test/msedgedriver");
-		// WebDriver driver2 = new EdgeDriver();
-
 		driver.get("https://www.amazon.com/");
 
 		// verify title of webpage
@@ -63,12 +60,9 @@ public class amazon {
 		driver.findElement(By.id("nav-search-submit-button")).submit();
 		Thread.sleep(1000);
 
-		// How many products on search result
-		WebElement searchdriver = driver
-				.findElement(By.cssSelector(".s-main-slot.s-result-list.s-search-results.sg-row"));
-		System.out.println(searchdriver.findElements(By.linkText(
-				"Monobeach Princess Tent Girls Large Playhouse Kids Castle Play Tent with Star Lights Toy for Children Indoor and Outdoor Games, 55'' x 53'' (DxH) : Toys & Games"))
-				.size());
+		// How many products on search result Monobeach Princess Tent Girls
+		WebElement searchdriver = driver.findElement(By.xpath("//*[@id='search']/div[1]/div[1]/div/span[1]/div[1]"));
+		System.out.println(searchdriver.findElements(By.partialLinkText("Monobeach Princess Tent Girls")).size());
 
 		// navigate on first result and go to the product page
 		driver.findElement(By.xpath("//span[@class='a-size-base-plus a-color-base a-text-normal']")).click();
@@ -92,9 +86,11 @@ public class amazon {
 		System.out.println("Customer Reviews is -- " + CustomerReviews);
 
 		// price
-		// System.out.print(driver.findElement(By.cssSelector("#corePriceDisplay_desktop_feature_div
-		// > div.a-section.a-spacing-none.aok-align-center >
-		// span.a-price.aok-align-center.reinventPricePriceToPayMargin.priceToPay")).getText());
+
+		String price = driver
+				.findElement(By.xpath("//*[@id='corePriceDisplay_desktop_feature_div']/div[1]/span[2]/span[2]/span[2]"))
+				.getText();
+		System.out.println("Price is -- " + price);
 
 		// add product on card
 		driver.findElement(By.id("add-to-cart-button")).click();
@@ -119,7 +115,7 @@ public class amazon {
 		// create new account
 		driver.findElement(By.id("createAccountSubmit")).click();
 		String name = "Rina";
-		String email = "test@test.com";
+		String email = "test@test1.com";
 		String password = "test12";
 		String re_enter_password = "test123";
 
@@ -132,6 +128,11 @@ public class amazon {
 		// verify expected alert
 		Boolean Display = driver.findElement(By.cssSelector("#auth-password-mismatch-alert > div > div")).isDisplayed();
 		System.out.println("Element displayed is :" + Display);
+
+		// verify expected alert
+		Assert.assertEquals(driver.findElement(By.cssSelector("#auth-password-mismatch-alert > div > div")).getText(),
+				"Passwords must match");
+		System.out.println(driver.findElement(By.cssSelector("#auth-password-mismatch-alert > div > div")).getText());
 
 	}
 
